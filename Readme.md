@@ -12,8 +12,11 @@
 Configurar credenciales en src/main/resources/application.properties:
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/restaurante
+
 spring.datasource.username=postgres
+
 spring.datasource.password=123456
+
 spring.jpa.properties.hibernate.default_schema=restaurant
 
 🔐 Seguridad
