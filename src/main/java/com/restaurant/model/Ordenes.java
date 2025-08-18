@@ -1,49 +1,51 @@
 package com.restaurant.model;
 
-import java.sql.Timestamp;
-import java.util.UUID;
 import jakarta.persistence.*;
-import lombok.Data;
+import java.math.BigDecimal;
+import java.sql.Date;
+import lombok.*;
 
 @Entity
 @Data
 @Table(name = "ordenes")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ordenes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
 
-    @Column(name = "numero_orden", nullable = false)
-    private Integer numeroOrden;
-
-    @ManyToOne
-    @JoinColumn(name = "mesa_id", nullable = false)
-    private Mesas mesa;
+    @Column(name = "numero_orden_dia")
+    private Integer numeroOrdenDia;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuarios usuario;
+    @JoinColumn(name = "mesa_id", referencedColumnName = "id")
+    private Mesa mesaid;
 
-    @Column(name = "estado", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuarios usuarioid;
+
+    @Column(name = "estado", length = 20)
     private String estado;
 
-    @Column(name = "subtotal", nullable = false)
-    private double subtotal;
-    
-    @Column(name = "impuestos", nullable = false)
-    private Double impuestos;
-    
-    @Column(name = "total", nullable = false)
-    private Double total;
-    
+    @Column(name = "subtotal")
+    private BigDecimal subtotal;
+
+    @Column(name = "impuestos")
+    private BigDecimal impuestos;
+
+    @Column(name = "total")
+    private BigDecimal total;
+
     @Column(name = "notas")
     private String notas;
 
-    @Column(name = "fecha_creacion", nullable = false)
-    private Timestamp fechaCreacion;
+    @Column(name = "fecha_creacion")
+    private Date fechaCreacion;
 
-    @Column(name = "fecha_actualizacion", nullable = false)
-    private Timestamp fechaActualizacion;
+    @Column(name = "fecha_actualizacion")
+    private Date fechaActualizacion;
 }

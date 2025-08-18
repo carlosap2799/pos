@@ -15,9 +15,9 @@ import lombok.Data;
 public class PaqueteMenu {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id" , updatable = false, nullable = false)
+    private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;  
@@ -27,5 +27,8 @@ public class PaqueteMenu {
     
     @Column(name = "precio", nullable = false)
     private Double precio;
+
+    @Column(name = "activo", nullable = false)
+    private Double activo;
 
 }
