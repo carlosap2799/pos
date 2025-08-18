@@ -17,10 +17,11 @@ import lombok.Data;
 @Table(name = "paquete_detalle")
 
 public class PaqueteDetalle{
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id" , updatable = false, nullable = false)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "paquete_id", nullable = false)

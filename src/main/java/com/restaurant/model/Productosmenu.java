@@ -1,6 +1,6 @@
 package com.restaurant.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,9 +18,9 @@ import lombok.Data;
 public class Productosmenu {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id" , updatable = false, nullable = false)
+    private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -48,9 +48,9 @@ public class Productosmenu {
     private Boolean activo;
 
     @Column(name = "fecha_creacion", nullable = false)
-    private Timestamp fechaCreacion;
+    private Date fechaCreacion;
 
     @Column(name = "fecha_actualizacion", nullable = false)
-    private Timestamp fechaActualizacion;
+    private Date fechaActualizacion;
 
 }

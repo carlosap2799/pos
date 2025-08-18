@@ -2,12 +2,15 @@ package com.restaurant.model;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.sql.Timestamp;
+
+import java.sql.Date;
 
 import lombok.Data;
 
@@ -16,17 +19,19 @@ import lombok.Data;
 @Table(name = "ventas")
 public class Ventas {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)   
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id" , updatable = false, nullable = false)
+    private Long id;
 
-    @Column(name = "numero_venta", nullable = true)
+    @Column(name = "numero_ticket", nullable = true)
     private Integer numeroVenta;
 
-    @Column(name = "orden_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "orden_id", nullable = false)
     private Ordenes ordenId;
 
-    @Column(name = "usuario_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuarios usuarioId;
 
     @Column(name = "metodo_pago", nullable = false)
@@ -48,5 +53,5 @@ public class Ventas {
     private Double cambio;
 
     @Column(name = "fecha_venta", nullable = false)
-    private Timestamp fechaVenta;
+    private Date fechaVenta;
 }

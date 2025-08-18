@@ -1,14 +1,8 @@
 package com.restaurant.model;
 
-import java.sql.Timestamp;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -16,32 +10,31 @@ import lombok.Data;
 public class Usuarios {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id" , updatable = false, nullable = false)
+    private Long id;
 
-    @Column(name = "nombre_usuario", nullable = false)
+    @Column(name = "nombre_usuario", nullable = false, unique = true, length = 50)
     private String nombreUsuario;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, length = 200)
     private String email;
 
-    @Column(name = "password_hash", nullable = false)
+    @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
     
-    @Column(name = "nombre_completo", nullable = false)
+    @Column(name = "nombre_completo", nullable = false, length = 250)
     private String nombreCompleto;
 
-    @Column(name = "rol", nullable = false)
+    @Column(name = "rol", nullable = false, length = 20)
     private String rol;
-    
-    @Column(name = "activo", nullable = false)
-    private Boolean activo;
-    
-    @Column(name = "fecha_creacion", nullable = false)
-    private Timestamp fechaCreacion;   
-    
-    @Column(name = "fecha_actualizacion", nullable = false)
-    private Timestamp fechaActualizacion;  
 
+    @Column(name = "activo")
+    private Boolean activo = true;
+
+    @Column(name = "fecha_creacion", updatable = false)
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
+
+    @Column(name = "fecha_actualizacion")
+    private LocalDateTime fechaActualizacion = LocalDateTime.now();
 }
