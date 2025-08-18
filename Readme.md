@@ -1,4 +1,4 @@
-# Proyecto Restaurante (Spring Boot + PostgreSQL)
+# Proyecto Restaurante
 
 ## 🚀 Requisitos
 - Java 17+
