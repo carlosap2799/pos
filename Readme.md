@@ -43,3 +43,5 @@ Para probar los endpoints del backend desde herramientas como Postman, se debe u
 -  Authorization: Bearer <TU_TOKEN_AQUI>
 
 Esto permite acceder a los endpoints que requieren autenticación.
+Para el front crear un archivo en raíz llamado .env.local y agregar:
+NEXT_PUBLIC_API_URL=http://localhost:8080
