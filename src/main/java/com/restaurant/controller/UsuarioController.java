@@ -21,4 +21,27 @@ public class UsuarioController {
     public ResponseEntity<List<Usuarios>> getAllUsuarios() {
         return ResponseEntity.ok(usuarioService.getAllUsuarios());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuarios> getUsuarioById(@PathVariable Long id) {
+        Usuarios usuario = usuarioService.getUsuarioById(id);
+        return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Usuarios> createUsuario(@RequestBody Usuarios usuario) {
+        return ResponseEntity.ok(usuarioService.saveUsuario(usuario));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
+        usuarioService.deleteUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuarios> updateUsuario(@PathVariable Long id, @RequestBody Usuarios usuarioDetails) {
+        Usuarios updatedUsuario = usuarioService.updateUsuario(id, usuarioDetails);
+        return updatedUsuario != null ? ResponseEntity.ok(updatedUsuario) : ResponseEntity.notFound().build();
+    }
 }
