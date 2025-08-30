@@ -2,7 +2,8 @@ package com.restaurant.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDateTime;
+
 import lombok.*;
 
 @Entity
@@ -44,8 +45,8 @@ public class Ordenes {
     private String notas;
 
     @Column(name = "fecha_creacion")
-    private Date fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     @Column(name = "fecha_actualizacion")
-    private Date fechaActualizacion;
+    private LocalDateTime fechaActualizacion;
 }
