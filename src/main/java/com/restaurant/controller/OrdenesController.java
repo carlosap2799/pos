@@ -20,4 +20,10 @@ public class OrdenesController {
         Ordenes nuevaOrden = ordenesService.crearOrden(dto);
         return ResponseEntity.ok(nuevaOrden);
     }
+
+    @GetMapping("/mesa/{mesaId}")
+    public ResponseEntity<Ordenes> obtenerOrdenActiva(@PathVariable Long mesaId) {
+        Ordenes orden = ordenesService.obtenerOrdenActiva(mesaId);
+        return ResponseEntity.ok(orden);
+    }
 }

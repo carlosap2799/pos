@@ -28,10 +28,25 @@ public class OrdenesService {
         Usuarios usuario = usuariosRepository.findById(dto.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        // Revisar si ya existe una orden activa en esta mesa
+        Ordenes ordenActiva = ordenesRepository.findByMesaidAndEstado(mesa, "abierta");
+
+        if (ordenActiva != null) {
+            // Sumar lo nuevo al total existente
+            ordenActiva.setSubtotal(ordenActiva.getSubtotal().add(dto.getSubtotal()));
+            ordenActiva.setImpuestos(ordenActiva.getImpuestos().add(dto.getImpuestos()));
+            ordenActiva.setTotal(ordenActiva.getTotal().add(dto.getTotal()));
+            ordenActiva.setNotas(dto.getNotas()); // opcional, podrías concatenar en vez de reemplazar
+            ordenActiva.setFechaActualizacion(LocalDateTime.now());
+
+            return ordenesRepository.save(ordenActiva);
+        }
+
+        // Crear nueva orden si no existe
         Ordenes orden = new Ordenes();
         orden.setMesaid(mesa);
         orden.setUsuarioid(usuario);
-        orden.setEstado(dto.getEstado());
+        orden.setEstado("abierta");
         orden.setSubtotal(dto.getSubtotal());
         orden.setImpuestos(dto.getImpuestos());
         orden.setTotal(dto.getTotal());
@@ -39,6 +54,21 @@ public class OrdenesService {
         orden.setFechaCreacion(LocalDateTime.now());
         orden.setFechaActualizacion(LocalDateTime.now());
 
-        return ordenesRepository.save(orden);
+        Ordenes nuevaOrden = ordenesRepository.save(orden);
+
+        // Marcar mesa como ocupada
+        mesa.setEstado("ocupada");
+        mesaRepository.save(mesa);
+
+        return nuevaOrden;
+    }
+
+    // 👇 Nuevo método para obtener la orden activa de una mesa
+    public Ordenes obtenerOrdenActiva(Long mesaId) {
+        Mesa mesa = mesaRepository.findById(mesaId)
+                .orElseThrow(() -> new RuntimeException("Mesa no encontrada"));
+
+        return ordenesRepository.findByMesaidAndEstado(mesa, "abierta");
     }
 }
+
