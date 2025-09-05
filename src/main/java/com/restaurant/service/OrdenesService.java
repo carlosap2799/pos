@@ -105,4 +105,19 @@ public class OrdenesService {
     public Ordenes obtenerOrdenActivaPorMesa(Long mesaId) {
         return obtenerOrdenActiva(mesaId);
     }
+
+    @Transactional
+    public void cerrarOrden(
+        int ordenId,
+        String metodoPago,
+        double montoEfectivo,
+        double montoTarjeta,
+        double montoTransferencia,
+        double cambio,
+        int usuarioId
+    ) {
+        ordenesRepository.cerrarOrden(
+            ordenId, metodoPago, montoEfectivo, montoTarjeta, montoTransferencia, cambio, usuarioId
+        );
+    }
 }
