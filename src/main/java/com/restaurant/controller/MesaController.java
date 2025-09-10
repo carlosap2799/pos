@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/mesas")
-@CrossOrigin(origins = "http://localhost:3000") 
+@CrossOrigin(origins = "http://localhost:3000")
 public class MesaController {
 
     private final MesaService mesaService;
@@ -32,4 +32,23 @@ public class MesaController {
     public Mesa actualizarMesa(@PathVariable Long id, @RequestBody MesaDTO dto) {
         return mesaService.actualizarMesaPosicion(id, dto);
     }
+
+    // 🔹 Editar mesa completa
+    @PutMapping("/editar/{id}")
+    public Mesa editarMesa(@PathVariable Long id, @RequestBody MesaDTO dto) {
+        return mesaService.editarMesa(id, dto);
+    }
+
+    // Soft delete
+    @PutMapping("/desactivar/{id}")
+    public void desactivarMesa(@PathVariable Long id) {
+        mesaService.desactivarMesa(id);
+    }
+
+    // Hard delete
+    @DeleteMapping("/{id}")
+    public void eliminarMesa(@PathVariable Long id) {
+        mesaService.eliminarMesa(id);
+    }
 }
+
